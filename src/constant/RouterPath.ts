@@ -3,6 +3,9 @@ export const ROUTER_PATH = {
     AUTH : {
         SIGN_IN: `/signin`,
         CALLBACK: `/callback`,
+    },
+    PLANNER: {
+        MAIN: `/planner`,
     }
 
 }
