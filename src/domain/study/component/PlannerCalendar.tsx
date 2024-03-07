@@ -1,26 +1,19 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { useParams } from "react-router-dom";
+import { usePlanStore } from "../store/PlanStore";
+import { useEffect } from "react";
 
 export default function PlannerCalendar() {
-  const plans = [
-    {
-      title: "event 1",
-      description: "설명이야!",
-      start: "2024-03-01T07:30:00",
-      end: "2024-03-02T15:30:00",
-      textColor: "#FFFFFF",
-      backgroundColor: "#378006",
-      display: "block",
-    },
-    {
-      title: "event2",
-      description: "설명이야!",
-      start: "2024-03-12T13:30:00",
-      end: "2024-03-12T15:30:00",
-      display: "block",
-    },
-  ];
+  const { studyId } = useParams();
+  const { plans, planEvents, fetchPlans, isPlansFetched } = usePlanStore();
+
+  useEffect(() => {
+    if (!isPlansFetched) {
+      fetchPlans(Number(studyId));
+    }
+  }, [plans, planEvents]);
 
   const fn_handleDateClick = (info: any) => {
     alert("Clicked " + info.dateStr);
@@ -47,7 +40,7 @@ export default function PlannerCalendar() {
       plugins={[dayGridPlugin, interactionPlugin]}
       initialView="dayGridMonth"
       weekends={true}
-      events={plans}
+      events={planEvents}
       height={"auto"}
       editable={true}
       selectable={true}
