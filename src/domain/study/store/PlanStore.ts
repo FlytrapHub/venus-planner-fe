@@ -24,7 +24,6 @@ export const usePlanStore = create<PlanStoreType>((set) => ({
         }
 
         let plans = response.data;
-        console.log(plans)
         let planEvents = fn_convertPlansToPlannerFormat(plans);
 
         set({
